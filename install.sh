@@ -26,6 +26,7 @@ pacstrap -i /mnt --noconfirm base base-devel vim dialog gptfdisk openssh grub os
 genfstab -U -p /mnt > /mnt/etc/fstab
 
 # chroot into new system and pass the other file to bash
+wget https://raw.githubusercontent.com/DanielBilanovic/archc720/master/afterroot.sh
 cp afterchroot.sh /mnt
 arch-chroot /mnt /bin/bash afterchroot.sh $1 $2
 

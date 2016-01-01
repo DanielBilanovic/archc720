@@ -76,19 +76,24 @@ rm -rf /home/$2/compton
 mkdir -p /home/$2/.config/autostart/
 chown -R $2:$2 /home/$2/.config
 
-wget https://raw.githubusercontent.com/DanielBilanovic/archc720/master/xbindkeysrc /home/$2/.xbindkeysrc
+wget https://raw.githubusercontent.com/DanielBilanovic/archc720/master/xbindkeysrc
+mv xbindkeysrc /home/$2/.xbindkeysrc
 chown $2:$2 /home/$2/.xbindkeysrc
 
-wget https://raw.githubusercontent.com/DanielBilanovic/archc720/master/xbindkeysrc.desktop /home/$2/.config/autostart/xbindkeys.desktop
+wget https://raw.githubusercontent.com/DanielBilanovic/archc720/master/xbindkeys.desktop
+mv xbindkeys.desktop /home/$2/.config/autostart/xbindkeys.desktop
 chown $2:$2 /home/$2/.config/autostart/xbindkeys.desktop
 
-wget https://raw.githubusercontent.com/DanielBilanovic/archc720/master/compton.desktop /home/$2/.config/autostart/compton.desktop
+wget https://raw.githubusercontent.com/DanielBilanovic/archc720/master/compton.desktop
+mv compton.desktop /home/$2/.config/autostart/compton.desktop
 chown $2:$2 /home/$2/.config/autostart/compton.desktop
 
-wget https://raw.githubusercontent.com/DanielBilanovic/archc720/master/compton.conf /home/$2/.config/autostart/compton.conf
+wget https://raw.githubusercontent.com/DanielBilanovic/archc720/master/compton.conf
+mv compton.conf /home/$2/.config/autostart/compton.conf
 chown $2:$2 /home/$2/.compton.conf
 
-wget https://raw.githubusercontent.com/DanielBilanovic/archc720/master/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
+wget https://raw.githubusercontent.com/DanielBilanovic/archc720/master/50-synaptics.conf
+mv 50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
 
 # Remove script file
 rm ${0}

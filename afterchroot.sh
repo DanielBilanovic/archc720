@@ -92,6 +92,16 @@ wget https://raw.githubusercontent.com/DanielBilanovic/archc720/master/compton.c
 mv compton.conf /home/$2/.config/autostart/compton.conf
 chown $2:$2 /home/$2/.compton.conf
 
+wget https://raw.githubusercontent.com/DanielBilanovic/archc720/master/zshrc
+cp zshrc ~/.zshrc
+mv zshrc /home/$2/.zshrc
+chown $2:$2 /home/$2/.zshrc
+
+wget https://raw.githubusercontent.com/DanielBilanovic/vim/master/vimrc
+cp vimrc ~/.vimrc
+mv vimrc /home/$2/.vimrc
+chown $2:$2 /home/$2/.vimrc
+
 wget https://raw.githubusercontent.com/DanielBilanovic/archc720/master/50-synaptics.conf
 mv 50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
 

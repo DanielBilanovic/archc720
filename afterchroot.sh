@@ -43,20 +43,20 @@ sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/g' /etc/default/grub
 sed -i 's/quiet/modprobe.blacklist=ehci_pci/g' /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
+# Create User
+useradd -m -s /usr/bin/zsh $2
+
 # Tell systemd how to handle power key press and lid close
 sed -i 's/.*HandlePowerKey.*/HandlePowerKey=ignore/g' /etc/systemd/logind.conf
-sed -i 's/.*HandleLidSwitch.*/HandlePowerKey=suspend/g' /etc/systemd/logind.conf
+sed -i 's/.*HandleLidSwitch.*/HandleLidSwitch=suspend/g' /etc/systemd/logind.conf
 
 # Set xfce4 settings for battery and ac
 sed -i 's/action-on-battery" type="uint" value=".*"/action-on-battery" type="uint" value="1"/g' /home/$2/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
-#sed -i 's/action-on-ac" type="uint" value=".*"/action-on-ac" type="uint" value="1"/g' /home/$2/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
+sed -i 's/action-on-ac" type="uint" value=".*"/action-on-ac" type="uint" value="1"/g' /home/$2/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
 
 # Enable login manager at boot
 systemctl enable lightdm.service
 echo "greeter-setup-script=/usr/bin/numlockx on" >> /etc/lightdm/lightdm.conf
-
-# Create User
-useradd -m -s /usr/bin/zsh $2
 
 # Compile compton and download settings
 mkdir compton

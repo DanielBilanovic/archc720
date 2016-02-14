@@ -90,7 +90,7 @@ chown $2:$2 /home/$2/.config/autostart/compton.desktop
 
 wget https://raw.githubusercontent.com/DanielBilanovic/archc720/master/compton.conf
 mv compton.conf /home/$2/.config/autostart/compton.conf
-chown $2:$2 /home/$2/.compton.conf
+chown $2:$2 /home/$2/.config/autostart/compton.conf
 
 wget https://raw.githubusercontent.com/DanielBilanovic/archc720/master/zshrc
 cp zshrc ~/.zshrc

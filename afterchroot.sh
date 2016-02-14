@@ -17,7 +17,7 @@ echo "arch" > /etc/hostname
 systemctl enable NetworkManager.service
 
 # Enable energy management services
-cat << EOF
+cat << EOF >> /usr/systemd/system/powertop.service
 [Unit]
 Desctiption=Powertop Service
 
@@ -50,9 +50,11 @@ useradd -m -s /usr/bin/zsh $2
 sed -i 's/.*HandlePowerKey.*/HandlePowerKey=ignore/g' /etc/systemd/logind.conf
 sed -i 's/.*HandleLidSwitch.*/HandleLidSwitch=suspend/g' /etc/systemd/logind.conf
 
-# Set xfce4 settings for battery and ac
-sed -i 's/action-on-battery" type="uint" value=".*"/action-on-battery" type="uint" value="1"/g' /home/$2/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
-sed -i 's/action-on-ac" type="uint" value=".*"/action-on-ac" type="uint" value="1"/g' /home/$2/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
+# Download xfce4 settings for power management
+wget http://raw.githubusercontent.com/DanielBilanovic/archc720/master/xfce4-power-manager.xml
+mkdir -p /home/$2/.config/xfce4/xfce-perchannel-xml
+mv xfce4-power-manager.xml /home/$2/.config/xfce4/xfce4-perchannel-xml/
+chown $2:$2 /home/$2/.config/xfce4/xfce-perchannel-xml/xfce4-power-manager.xml
 
 # Enable login manager at boot
 systemctl enable lightdm.service

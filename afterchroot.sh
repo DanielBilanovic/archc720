@@ -46,10 +46,6 @@ grub-mkconfig -o /boot/grub/grub.cfg
 # Create User
 useradd -m -s /usr/bin/zsh $2
 
-# Tell systemd how to handle power key press and lid close
-sed -i 's/.*HandlePowerKey.*/HandlePowerKey=ignore/g' /etc/systemd/logind.conf
-sed -i 's/.*HandleLidSwitch.*/HandleLidSwitch=suspend/g' /etc/systemd/logind.conf
-
 # Download xfce4 settings for power management
 wget http://raw.githubusercontent.com/DanielBilanovic/archc720/master/xfce4-power-manager.xml
 mkdir -p /home/$2/.config/xfce4/xfce-perchannel-xml

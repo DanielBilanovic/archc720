@@ -60,21 +60,7 @@ chown $2:$2 /home/$2/.config/xfce4/xfce-perchannel-xml/xfce4-power-manager.xml
 systemctl enable lightdm.service
 echo "greeter-setup-script=/usr/bin/numlockx on" >> /etc/lightdm/lightdm.conf
 
-# Compile compton and download settings
-mkdir compton
-chown $2:$2 compton
-cd compton
-wget https://aur.archlinux.org/packages/co/compton/PKGBUILD
-
-echo "$2 ALL=(ALL) ALL" >> /etc/sudoers
-
-sudo $2 -c 'makepkg -s'
-pacman -U --noconfirm /home/$2/compton/compton*xz
-
-sed -i "/^$2/d" /etc/sudoers
-
-rm -rf /home/$2/compton
-
+# Download settings
 mkdir -p /home/$2/.config/autostart/
 chown -R $2:$2 /home/$2/.config
 

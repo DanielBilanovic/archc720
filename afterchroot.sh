@@ -17,7 +17,7 @@ echo "arch" > /etc/hostname
 systemctl enable NetworkManager.service
 
 # Enable energy management services
-cat << EOF >> /usr/systemd/system/powertop.service
+cat << EOF >> /etc/systemd/system/powertop.service
 [Unit]
 Desctiption=Powertop Service
 

@@ -13,7 +13,7 @@ else
 fi
 mkswap ${1}2
 swapon ${1}2
-mkfs.ext4 ${1}1
+mkfs.ext4 -F ${1}1
 mount ${1}1 /mnt
 
 # Delete all non-german mirrors from the mirrorlist

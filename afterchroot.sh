@@ -46,13 +46,6 @@ grub-mkconfig -o /boot/grub/grub.cfg
 # Create User
 useradd -m -s /usr/bin/zsh $2
 
-# Change xfce4 settings for power management
-# Ask when power button is pressed
-xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/power-button-action -s 3
-# Suspend when lid is closed (ac and battery)
-xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/lid-action-on-ac -s 1
-xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/lid-action-on-battery -s 1
-
 # Enable login manager at boot
 systemctl enable lightdm.service
 

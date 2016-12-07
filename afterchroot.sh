@@ -85,7 +85,7 @@ wget $GITHUBPATH/zshrc
 cp zshrc ~/.zshrc
 mv zshrc .zshrc
 
-wget $GITHUBPATH/vimrc
+wget https://raw.githubusercontent.com/DanielBilanovic/vim/master/vimrc
 cp vimrc ~/.vimrc
 mv vimrc .vimrc
 chown -R $2:$2 /home/$2/

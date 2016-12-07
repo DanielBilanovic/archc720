@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 # Enable TRIM
 sed -i 's/rw/rw,noatime,discard/g' /etc/fstab
@@ -40,7 +40,7 @@ mkinitcpio -p linux
 # Install and customize GRUB
 grub-install --target=i386-pc --recheck --debug $1
 sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/g' /etc/default/grub
-sed -i 's/quiet/modprobe.blacklist=ehci_pci/g' /etc/default/grub
+sed -i 's/quiet/modprobe.blacklist=ehci_pci tpm_tis.interrupts=0 i915.enable_ips=0/g' /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
 # Create User
@@ -55,39 +55,49 @@ xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/lid-action-on-batter
 
 # Enable login manager at boot
 systemctl enable lightdm.service
-echo "greeter-setup-script=/usr/bin/numlockx on" >> /etc/lightdm/lightdm.conf
 
 # Download settings
-mkdir -p /home/$2/.config/autostart/
-chown -R $2:$2 /home/$2/.config
+GITHUBPATH=https://raw.githubusercontent.com/DanielBilanovic/archc720/master
+AUTOSTARTPATH=/home/$2/.config/autostart
+XFCEPATH=/home/$2/.config/xfce4/xfconf/xfce-perchannel-xml/
+cd /home/$2
+mkdir -p $AUTOSTARTPATH
+mkdir -p $XFCEPATH
 
-wget https://raw.githubusercontent.com/DanielBilanovic/archc720/master/xbindkeysrc
-mv xbindkeysrc /home/$2/.xbindkeysrc
-chown $2:$2 /home/$2/.xbindkeysrc
+wget $GITHUBPATH/xbindkeysrc
+mv xbindkeysrc .xbindkeysrc
 
-wget https://raw.githubusercontent.com/DanielBilanovic/archc720/master/xbindkeys.desktop
-mv xbindkeys.desktop /home/$2/.config/autostart/xbindkeys.desktop
-chown $2:$2 /home/$2/.config/autostart/xbindkeys.desktop
+wget $GITHUBPATH/xbindkeys.desktop
+mv xbindkeys.desktop $AUTOSTARTPATH/
 
-wget https://raw.githubusercontent.com/DanielBilanovic/archc720/master/compton.desktop
-mv compton.desktop /home/$2/.config/autostart/compton.desktop
-chown $2:$2 /home/$2/.config/autostart/compton.desktop
+wget $GITHUBPATH/compton.desktop
+mv compton.desktop $AUTOSTARTPATH/
 
-wget https://raw.githubusercontent.com/DanielBilanovic/archc720/master/compton.conf
-mv compton.conf /home/$2/.config/autostart/compton.conf
-chown $2:$2 /home/$2/.config/autostart/compton.conf
+wget $GITHUBPATH/compton.conf
+mv compton.conf $AUTOSTARTPATH/
 
-wget https://raw.githubusercontent.com/DanielBilanovic/archc720/master/zshrc
+wget $GITHUBPATH/xfce4-keyboard-shortcuts.xml
+mv xfce4-keyboard-shortcuts.xml $XFCEPATH/
+
+wget $GITHUBPATH/xfce4-panel.xml
+mv xfce4-panel.xml $XFCEPATH/
+
+wget $GITHUBPATH/xfce4-power-manager.xml
+mv xfce4-power-manager.xml $XFCEPATH/
+
+wget $GITHUBPATH/xfwm4.xml
+mv xfwm4.xml $XFCEPATH/
+
+wget $GITHUBPATH/zshrc
 cp zshrc ~/.zshrc
-mv zshrc /home/$2/.zshrc
-chown $2:$2 /home/$2/.zshrc
+mv zshrc .zshrc
 
-wget https://raw.githubusercontent.com/DanielBilanovic/vim/master/vimrc
+wget $GITHUBPATH/vimrc
 cp vimrc ~/.vimrc
-mv vimrc /home/$2/.vimrc
-chown $2:$2 /home/$2/.vimrc
+mv vimrc .vimrc
+chown -R $2:$2 /home/$2/
 
-wget https://raw.githubusercontent.com/DanielBilanovic/archc720/master/50-synaptics.conf
+wget $GITHUBPATH/50-synaptics.conf
 mv 50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
 
 # Remove script file
@@ -95,3 +105,4 @@ rm ${0}
 
 echo "CHANGE USER AND ROOT PASSWORD!"
 exit
+

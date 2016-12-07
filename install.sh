@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 # This script installs Arch Linux automatically on a Acer C720 Chromebook.
 # It expects the device name where it should be installed and the name of the user to create
 # The Partition will be 12G, swap will be as big as the rest of the device.
@@ -20,7 +20,7 @@ mount ${1}1 /mnt
 sed -i '/text\|\.de/!d' /etc/pacman.d/mirrorlist
 
 # Install base system and wanted packages
-pacstrap -i /mnt --noconfirm base base-devel vim dialog gptfdisk openssh grub os-prober zsh xorg-server xorg-server-utils xorg-apps xorg-xinit xf86-video-intel xfce4 xfce4-goodies numlockx lightdm lightdm-gtk-greeter xterm firefox htop intel-ucode wireless_tools networkmanager xf86-input-synaptics powertop pulseaudio pulseaudio-alsa gnome-alsamixer pavucontrol vlc cmake glib-networking network-manager-applet xbindkeys xdotool wget cpupower evince xarchiver zip p7zip lzop cpio unrar compton
+pacstrap -i /mnt --noconfirm base base-devel vim dialog gptfdisk openssh grub zsh xorg-server xorg-server-utils xorg-apps xorg-xinit xf86-video-intel xfce4 xfce4-goodies lightdm lightdm-gtk-greeter xterm firefox htop intel-ucode wireless_tools networkmanager xf86-input-synaptics powertop pulseaudio pulseaudio-alsa gnome-alsamixer pavucontrol vlc cmake glib-networking network-manager-applet xbindkeys xdotool wget cpupower evince xarchiver zip p7zip lzop cpio unrar compton ntfs-3g
 
 # Generate fstab
 genfstab -U -p /mnt > /mnt/etc/fstab
@@ -33,3 +33,4 @@ arch-chroot /mnt /bin/bash afterchroot.sh $1 $2
 
 # chroot again to change passwords
 arch-chroot /mnt
+

@@ -31,6 +31,12 @@ EOF
 systemctl enable powertop.service
 systemctl enable cpupower
 
+# Set systemd to ignore lid close and power button press
+cat << EOF >> /etc/systemd/logind.conf
+HandlePowerKey=ignore
+HandleLidSwitch=ignore
+EOF
+
 # Add KMS module to loading modules
 sed -i -e 's/MODULES=""/MODULES="i915"/g' /etc/mkinitcpio.conf
 
@@ -40,7 +46,8 @@ mkinitcpio -p linux
 # Install and customize GRUB
 grub-install --target=i386-pc --recheck --debug $1
 sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/g' /etc/default/grub
-sed -i 's/quiet/modprobe.blacklist=ehci_pci tpm_tis.interrupts=0 i915.enable_ips=0/g' /etc/default/grub
+#sed -i 's/quiet/modprobe.blacklist=ehci_pci tpm_tis.interrupts=0 i915.enable_ips=0/g' /etc/default/grub
+sed -i 's/quiet/modprobe.blacklist=ehci_pci/g' /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
 # Create User

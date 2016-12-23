@@ -34,14 +34,7 @@ alias l='ls --color=auto --human-readable --group-directories-first --literal -l
 alias df='df -h'
 alias du='du -h'
 alias free='free -h'
-alias geburtstage='vim ~/daten/wichtig/txt/Geburtstage.txt'
-alias tempfile='vim /mnt/windows/bookmark.txt'
 alias cal='cal -m'
-
-alias rbissh='ssh -X -i ~/.ssh/id_rsa bilano@kepheus.rbi.cs.uni-frankfurt.de'
-alias parassh='ssh -X daniel@192.168.1.20'
-alias pissh='ssh -X daniel@192.168.1.20'
-alias handyftp='sftp -P 10022 user@192.168.1.154'
 
 # PS1 escape sqeuences
 # man zshmisc for a full list of parameters
@@ -51,10 +44,6 @@ if [[ `id -u` == 0 ]] then
 else
 	export PS1="%F{magenta}%1d$%f "
 fi
-
-# Mach (Mozilla) build stuff
-export SHELL=/usr/bin/zsh
-export MOZBUILD_STATE_PATH=/home/daniel/programmieren/firefox/.mozbuild
 
 # ex - archive extractor
 # usage: ex <file>

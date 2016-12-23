@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # This script installs Arch Linux automatically on a Acer C720 Chromebook.
-# It expects the device name where it should be installed and the name of the user to create
+# It expects:
+# $1: The device name where it should be installed (e.g. /dev/sda)
+# $2: The name of the user to create (e.g. john)
 # The Partition will be 12G, swap will be as big as the rest of the device.
 
 # Create 2 partitions, first is 12GB big the second is the rest of the drive.

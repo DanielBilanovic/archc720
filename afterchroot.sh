@@ -13,10 +13,7 @@ ln -s /usr/share/zoneninfo/Europe/Berlin /etc/localtime
 hwclock --systohc --localtime
 echo "arch" > /etc/hostname
 
-# Enable networking
-systemctl enable NetworkManager.service
-
-# Enable energy management services
+# Create energy management service-file
 cat << EOF >> /etc/systemd/system/powertop.service
 [Unit]
 Desctiption=Powertop Service
@@ -28,8 +25,13 @@ ExecStart=/usr/bin/powertop --auto-tune
 [Install]
 WantedBy=multi-user.target
 EOF
-systemctl enable powertop.service
-systemctl enable cpupower
+
+# Enable services
+systemctl enable powertop.service	# power management
+systemctl enable cpupower		# power management
+systemctl enable lightdm.service	# login manager
+systemctl enable NetworkManager.service	# network manager
+systemctl enable openntpd.service	# network time
 
 # Set systemd to ignore lid close and power button press
 cat << EOF >> /etc/systemd/logind.conf
@@ -52,9 +54,6 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 # Create User
 useradd -m -s /usr/bin/zsh $2
-
-# Enable login manager at boot
-systemctl enable lightdm.service
 
 # Download settings
 GITHUBPATH=https://raw.githubusercontent.com/DanielBilanovic/archc720/master

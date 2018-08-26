@@ -17,11 +17,13 @@ autoload -U compinit
 compinit
 # End of lines added by compinstall
 
-bindkey ';5D'	emacs-backward-word
-bindkey ';5C'	emacs-forward-word
-bindkey '^[[H'	beginning-of-line
-bindkey '^[[F'	end-of-line
-bindkey '\e[3~' delete-char
+bindkey '^[[1;5C'       forward-word
+bindkey '^[[1;5D'       backward-word
+bindkey ';5D'		emacs-backward-word
+bindkey ';5C'		emacs-forward-word
+bindkey '^[[H'		beginning-of-line
+bindkey '^[[F'		end-of-line
+bindkey '\e[3~' 	delete-char
 
 # Reverse history search
 bindkey -v
